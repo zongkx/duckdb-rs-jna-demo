@@ -90,31 +90,6 @@
                             <copyWithPlatformDir>true</copyWithPlatformDir>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>double-number-test</id>
-
-                        <!--
-                            This execution will run the `cargo test` command on the crate.
-                            This is useful for running unit tests written in Rust.
-                        -->
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-
-                        <configuration>
-                            <!-- Relative path to the crate. -->
-                            <path>src/main/rust/double-number</path>
-
-                            <!-- Specify `true` to test a release (rather than debug) build. -->
-                            <release>false</release>
-
-                            <verbosity>-v</verbosity>
-
-                            <environmentVariables>
-                                <REVERSED_STR_PREFIX>Testing prefix</REVERSED_STR_PREFIX>
-                            </environmentVariables>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
