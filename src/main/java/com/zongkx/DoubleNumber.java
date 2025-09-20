@@ -29,15 +29,18 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 
 public interface DoubleNumber extends Library {
-    DoubleNumber INSTANCE = (DoubleNumber) Native.load("double_number", DoubleNumber.class);
+    DoubleNumber INSTANCE = Native.load("double_number", DoubleNumber.class);
+
+    static void main(String[] args) {
+        System.out.println(DoubleNumber.INSTANCE.doubleNumber(21));
+        System.out.println(DoubleNumber.INSTANCE.getVersion());
+        DoubleNumber instance = DoubleNumber.INSTANCE;
+        System.out.println(instance.init("/opt", "/opt".length()));
+    }
 
     int doubleNumber(int n);
 
     String getVersion();
 
-
-    static void main(String[] args) {
-        System.out.println(DoubleNumber.INSTANCE.doubleNumber(21));
-        System.out.println(DoubleNumber.INSTANCE.getVersion());
-    }
+    int init(String dir, int len);
 }

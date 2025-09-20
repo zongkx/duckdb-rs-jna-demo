@@ -1,6 +1,7 @@
 use anyhow::Context;
 use serde::Serialize;
 
+mod client;
 pub mod d;
 mod writer;
 

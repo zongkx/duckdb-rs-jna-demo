@@ -34,8 +34,8 @@ impl DuckDBCsvWriter {
         let base_path_buf = PathBuf::from(base_path);
         let csv_file_buf = base_path_buf.join(csv_file_name);
 
-        let mut rng = rand::thread_rng();
-        let limit = rng.gen_range(100..=200);
+        let mut rng = rand::rng();
+        let limit = rng.random_range(100..=200);
 
         // 初始化writer
         let writer = Self::create_new_writer(&csv_file_buf, false)?;
@@ -57,18 +57,17 @@ impl DuckDBCsvWriter {
             let writer = writer_guard
                 .as_mut()
                 .ok_or_else(|| anyhow!("Writer is closed"))?;
-
             for item in list {
                 let json_string = to_string(item)?;
                 writeln!(writer, "{}", json_string)?;
             }
             writer.flush()?;
-        } // 🔑 在这里释放 writer_guard
+        }
 
         let new_count = self.row_counter.fetch_add(list.len(), Ordering::Relaxed) + list.len();
 
         if self.need_organize && new_count >= self.limit {
-            self.organize()?; // 这里就不会死锁了
+            self.organize()?;
         }
         Ok(())
     }
